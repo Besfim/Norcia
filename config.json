@@ -1,0 +1,21 @@
+{
+  "head": "博客名称",
+  "introduce": "博客介绍",
+  "github": "github地址",
+  "weibo": "weibo地址",
+  "tag": "文章标签",
+  "articles": [
+    {
+      "title": "文章标题",
+      "tag": "文章标签",
+      "create": "创作日期",
+      "update": "更新日期"
+    },
+    {
+      "title": "文章标题",
+      "tag": "文章标签",
+      "create": "创作日期",
+      "update": "更新日期"
+    }
+  ]
+}
