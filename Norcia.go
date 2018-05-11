@@ -36,7 +36,12 @@ import (
 const docDirName string = "document/"
 const miniDocDirName string = "document_mini/"
 func main() {
+	//var oldArticleNum = 0
+	var updateNum = 0
+	var createNum = 0
+	//var deleteNum = 0
 	blogconfig := parseConfigJson(readFileToString("config.json"))
+	//oldArticleNum = len(blogconfig.Articles)
 	//读取 document 文件
 	files, _ := ioutil.ReadDir("document")
 	var articles []Article
@@ -49,33 +54,36 @@ func main() {
 		var temp Article
 		articleFromConfig,successFlag := getArticleFromConfigByTitle(title,blogconfig)
 		if successFlag == 1{
-			temp = Article{
-				Title:  title,
-				Tag:    "tag",
-				Update: substr(updateTime.String(),0,16),
-				Create: articleFromConfig.Create,
+			//如果能够找到旧的文件
+			//最后修改时间没变
+			if articleFromConfig.Update == substr(updateTime.String(),0,16) {
+				temp = articleFromConfig
+			}else {
+				temp = Article{
+					Title:  title,
+					Tag:    "tag",
+					Update: substr(updateTime.String(),0,16),
+					Create: articleFromConfig.Create,
+				}
+				updateNum++
 			}
 		}else if successFlag == 0{
+			//如果无法找到旧的文件,证明文件时新建的!
 			temp = Article{
 				Title:  title,
 				Tag:    "tag",
 				Update: substr(updateTime.String(),0,16),
 				Create: substr(updateTime.String(),0,16),
 			}
+			createNum++
 		}
+		//每一次都会刷新头部缓存
 		writeStringToFile(docMini,miniDocDirName+fileName)
 		articles = append(articles, temp)
 	}
-	var newBlogConfig BlogConfig
-	newBlogConfig = BlogConfig{
-		Head:blogconfig.Head,
-		Introduce:blogconfig.Introduce,
-		Github:blogconfig.Github,
-		Weibo:blogconfig.Weibo,
-		Articles:articles,
-	}
-	outputNewBlogConfig(newBlogConfig)
-	fmt.Println("finish")
+	blogconfig.Articles = articles
+	outputNewBlogConfig(blogconfig)
+	fmt.Println("update",updateNum,"document(s), and create",createNum,"documents(s)")
 }
 
 
@@ -182,12 +190,3 @@ func substr(str string, start, length int) string {
 	}
 	return string(rs[start:end])
 }
-
-// 遍历 document 文件夹
-// 获取配置文件
-// 对比两者
-// 查看是否有更新或者有不同
-// 如果有不同的话那么就更新 config.json
-// 生成简介
-
-// 生成搜索索引

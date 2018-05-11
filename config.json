@@ -1,20 +1,20 @@
 {
-	"head": "",
-	"introduce": "",
-	"github": "",
+	"head": "Norica Blog",
+	"introduce": "A simple static blog framework",
+	"github": "https://github.com/Besfim/Norcia",
 	"weibo": "",
 	"articles": [
 		{
 			"title": "test",
 			"tag": "tag",
 			"create": "2018-05-11 18:15",
-			"update": "2018-05-11 18:15"
+			"update": "2018-05-11 22:39"
 		},
 		{
 			"title": "test2",
 			"tag": "tag",
 			"create": "2018-05-11 21:52",
-			"update": "2018-05-11 21:52"
+			"update": "2018-05-11 22:27"
 		}
 	]
 }
