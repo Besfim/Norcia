@@ -1,0 +1,21 @@
+.padding-t-10p{
+    padding-top: 10%;
+}
+
+/*侧边栏的头像图片*/
+.logo {
+    height: 100px;
+    width:100px;
+    border:5px solid white;
+}
+
+.name-mail-line-height{
+    line-height: 5px;
+}
+
+body{background: #f6f6f6}
+table{border-collapse:collapse;margin:0 auto;text-align:center;min-width:100%;}
+table td,table th{color:#2d2d2d;height:30px;}
+table thead th{background-color:#d5d7d3;width:100px;}
+table tr:nth-child(odd){background:#fafcf8;}
+table tr:nth-child(even){background:#fafcf8;}

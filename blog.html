@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.9,  user-scalable=no">
+    <link rel="stylesheet" href="css/mdui.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/mdui.min.js"></script>
+</head>
+<style type="text/css">
+</style>
+<body class="mdui-theme-accent-pink mdui-theme-primary-indigo">
+    <header class="mdui-color-theme" style="width: 100%; min-height: 35%;z-index: -1;position: absolute; ">
+    </header>
+
+    <div class="mdui-toolbar mdui-color-theme" id="test">
+        <button  onclick="inst.toggle()" class="mdui-btn mdui-btn-icon mdui-text-color-white" >
+            <i class="mdui-icon material-icons">menu</i>
+        </button>
+        <div class="mdui-toolbar-spacer"></div>
+        <button class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">share</i></button>
+    </div>
+
+    <div class="mdui-container-fluid mdui-m-t-5">
+        <!--占位-->
+        <div class="mdui-col-md-2 mdui-col-sm-0"></div>
+        <!--内容主要显示区域-->
+        <div class="mdui-col-md-8 mdui-col-sm-12 ">
+            <div class="mdui-card mdui-shadow-6 mdui-typo mdui-p-a-4 mdui-m-b-2">
+                <div id="mktext">
+                    <h1> <strong>自定义 AlertDialog.Builder</strong></h1>
+                    <h2>起因</h2>
+                    <p>项目当中希望通过Dialog这种卡片化的类似于web当中模态框一样的元素让用户进行各种交互，于是需要自定义Dialo.Builder，然而假如不自定义Builder类而是每次都直接写在代码中的话就会显得非常的混乱，而且由于这种Dialog本来就是在Fragment里面调用的所以代码显得更加的不清晰了，于是想办法把每一个Dialog单独提取出来封装成一个专有的类，然后主代码里面直接新建这样的一个类就好了。</p>
+                    <h2 >代码如下</h2>
+                    <code>
+                        hello world
+                    </code>
+                    <h2>起因2</h2>
+                    <p>项目当中希望通过Dialog这种卡片化的类似于web当中模态框一样的元素让用户进行各种交互，于是需要自定义Dialo.Builder，然而假如不自定义Builder类而是每次都直接写在代码中的话就会显得非常的混乱，而且由于这种Dialog本来就是在Fragment里面调用的所以代码显得更加的不清晰了，于是想办法把每一个Dialog单独提取出来封装成一个专有的类，然后主代码里面直接新建这样的一个类就好了。</p>
+                    <h2>起因3</h2>
+                    <p>项目当中希望通过Dialog这种卡片化的类似于web当中模态框一样的元素让用户进行各种交互，于是需要自定义Dialo.Builder，然而假如不自定义Builder类而是每次都直接写在代码中的话就会显得非常的混乱，而且由于这种Dialog本来就是在Fragment里面调用的所以代码显得更加的不清晰了，于是想办法把每一个Dialog单独提取出来封装成一个专有的类，然后主代码里面直接新建这样的一个类就好了。</p>
+
+                    <h2 >说明</h2>
+                    <p>其实就是在另一个类里面DialogBuilder而已，这里先对传进来的View进行布局的设置，然后调用各种super方法写好其他的东西而已</p>
+                </div>
+                <div class="mdui-typo mdui-m-t-3 mdui-m-b-3">
+                    <hr/>
+                </div>
+                <!--显示文章外的信息-->
+                <div>
+                    <div class="mdui-typo mdui-typo-subheading-opacity">
+                        <ul>
+                            <li>最后更新时间 ： 2017年08月20日 21:57:23</li>
+                            <li>原始链接 : </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mdui-m-a-5">
+                    <button class="mdui-btn mdui-btn-icon mdui-center mdui-color-red mdui-btn-raised" style="height: 56px;width: 56px;">
+                        赏
+                    </button>
+                </div>
+                <div class="mdui-typo mdui-m-t-3 mdui-m-b-3">
+                    <hr/>
+                </div>
+                <div class="mdui-m-t-2 mdui-m-b-2">
+                    <button class="mdui-btn mdui-ripple mdui-color-red-400 mdui-text-color-white mdui-shadow-1">Android</button>
+                    <button class="mdui-btn mdui-ripple mdui-color-amber-400 mdui-text-color-white mdui-shadow-1">项目技巧</button>
+                    <button class="mdui-btn mdui-ripple mdui-color-light-green-400 mdui-text-color-white mdui-shadow-1">个人发布</button>
+                </div>
+            </div>
+        </div>
+        <!--占位-->
+        <div class="mdui-col-md-2 mdui-col-sm-0"></div>
+    </div>
+
+    <div class="mdui-container mdui-appbar-with-toolbar">
+        <div class="mdui-drawer	mdui-drawer-full-height mdui-color-white mdui-drawer-close" id="drawer" >
+            <div style="height: 30%;background: #3F51B5 url('https://imys.net/img/brand.jpg');">
+                <img class="mdui-img-circle logo mdui-m-l-3 mdui-m-t-4" src="img/logo.jpg"/>
+                <div class="mdui-typo mdui-m-l-4">
+                    <h4 class="mdui-text-color-white mdui-m-t-2 name-mail-line-height"><strong>Norcia Blog</strong></h4>
+                    <p class="mdui-text-color-white mdui-m-t-0 name-mail-line-height">test@test.com</p>
+                </div>
+            </div>
+            <ul class="mdui-list">
+                <br>
+                <li class="mdui-list-item mdui-ripple" onclick="" ocument.body.scrollTop=0;">
+                    <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-grey">&#xe88a;</i>
+                    <div class="mdui-list-item-content">首页 Home</div>
+                </li>
+
+                <br>
+                <li class="mdui-list-item mdui-ripple" onclick="">
+                    <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-grey">&#xe865;</i>
+                    <div class="mdui-list-item-content">归档 Archives</div>
+                </li>
+
+                <br>
+                <li class="mdui-list-item mdui-ripple" onclick="">
+                    <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-grey">&#xe865;</i>
+                    <div class="mdui-list-item-content">标签 Tag</div>
+                </li>
+
+                <br>
+                <li class="mdui-list-item mdui-ripple" onclick="">
+                    <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-grey">&#xe865;</i>
+                    <div class="mdui-list-item-content">Github</div>
+                </li>
+
+                <br>
+                <li class="mdui-list-item mdui-ripple" onclick="">
+                    <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-grey">&#xe865;</i>
+                    <div class="mdui-list-item-content">Weibo</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+<script src="js/marked.js"></script>
+<script src="js/script.js"></script>
+<script>
+    const inst=new mdui.Drawer('#drawer',{swipe:true});
+</script>
+</html>
