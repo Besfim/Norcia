@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"strings"
+	"sort"
 )
 
 /**
@@ -23,12 +24,14 @@ import (
 				"tag": "文章标签",
 				"create": "创作日期",
 				"update": "更新日期"
+				"mini": "文章缩略前300个字"
 			},
 			{
 				"title": "文章标题",
 				"tag": "文章标签",
 				"create": "创作日期",
 				"update": "更新日期"
+				"mini": "文章缩略前300个字"
 			}
 		]
 	}
@@ -49,7 +52,7 @@ func main() {
 		var fileName = file.Name()                              //文件名
 		var title = strings.Replace(fileName,".md","",-1)       //title
 		var docContent = readFileToString(docDirName +fileName) //文档内容
-		var docMini = substr(docContent,0,200)                  //文档的缩小部分
+		var miniDoc = substr(cleanMarkdownDoc(docContent),0,300)//文档缩略
 		var updateTime = file.ModTime()                         //更新时间
 		var temp Article
 		articleFromConfig,successFlag := getArticleFromConfigByTitle(title,blogconfig)
@@ -64,6 +67,7 @@ func main() {
 					Tag:    "tag",
 					Update: substr(updateTime.String(),0,16),
 					Create: articleFromConfig.Create,
+					Mini:miniDoc,
 				}
 				updateNum++
 			}
@@ -74,13 +78,13 @@ func main() {
 				Tag:    "tag",
 				Update: substr(updateTime.String(),0,16),
 				Create: substr(updateTime.String(),0,16),
+				Mini:miniDoc,
 			}
 			createNum++
 		}
-		//每一次都会刷新头部缓存
-		writeStringToFile(docMini,miniDocDirName+fileName)
 		articles = append(articles, temp)
 	}
+	sort.Sort(articleList(articles))
 	blogconfig.Articles = articles
 	outputNewBlogConfig(blogconfig)
 	fmt.Println("update",updateNum,"document(s), and create",createNum,"documents(s)")
@@ -119,6 +123,20 @@ type Article struct {
 	Tag			string	`json:"tag"`
 	Create		string	`json:"create"`
 	Update		string	`json:"update"`
+	Mini		string 	`json:"mini"`
+}
+
+//排序 Article
+type articleList []Article
+
+func (I articleList) Len() int {
+	return len(I)
+}
+func (I articleList) Less(i, j int) bool {
+	return I[i].Create > I[j].Create
+}
+func (I articleList) Swap(i, j int) {
+	I[i], I[j] = I[j], I[i]
 }
 
 // 解析 配置 Json 的函数
@@ -163,6 +181,21 @@ func getArticleFromConfigByTitle(title string,config BlogConfig) (Article,int) {
 	}
 	return nullArticle,0
 }
+
+//去除 markdown 文档里面的 markdown 符号
+func cleanMarkdownDoc(mkDoc string) string {
+	mkDoc = strings.Replace(mkDoc,"#","",-1)
+	mkDoc = strings.Replace(mkDoc,"**","",-1)
+	mkDoc = strings.Replace(mkDoc,"-","",-1)
+	mkDoc = strings.Replace(mkDoc,"+","",-1)
+	mkDoc = strings.Replace(mkDoc,">","",-1)
+	mkDoc = strings.Replace(mkDoc,"-","",-1)
+	mkDoc = strings.Replace(mkDoc,"|","",-1)
+	mkDoc = strings.Replace(mkDoc,"\r"," ",-1)
+	mkDoc = strings.Replace(mkDoc,"\n"," ",-1)
+	return mkDoc
+}
+
 
 //裁剪字符串
 func substr(str string, start, length int) string {
