@@ -14,7 +14,7 @@ Norcia 为以下三个平台提供打包好的二进制程序
 
  - `Norcia_win_amd64` 适用于 64 位 windows 系统
  - `Norcia_drawin_amd64` 适用于 64 位 Mac OS 系统
- - `Norcia_linux_amd64` 适用于 64 位 windows 系统
+ - `Norcia_linux_amd64` 适用于 64 位 linux 系统
 
 ### 格式和说明
 
