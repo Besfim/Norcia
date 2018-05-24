@@ -10,6 +10,10 @@ import (
 	"strings"
 	"sort"
 	"strconv"
+	"log"
+	"path/filepath"
+	"net/http"
+	"flag"
 )
 
 /**
@@ -43,9 +47,35 @@ const docDirName string = "document/"
 // Norcia 多语言支持
 var language = "cn"
 //const languageMap = initLanguageMap()
+
+// Preview 服务的运行端口
+var previewFlag = flag.Bool("p",false,"run a Web Server for blog preview")
+
 func main() {
-	//var oldArticleNum = 0
+	flag.Parse()
 	printHeader()
+	if *previewFlag {
+		configUpdateServer()
+		previewServer()
+	}else {
+		configUpdateServer()
+	}
+}
+
+func previewServer() {
+	h := http.FileServer(http.Dir(getCurrentDirectory()))
+	fmt.Println()
+	fmt.Println("---------- Norcia 博客预览服务 ----------")
+	fmt.Println()
+	fmt.Println("请访问: http://localhost:8666/index.html ")
+
+	err := http.ListenAndServe(":8666", h)
+	if err != nil {
+		log.Fatal("ListenAndServe: ", err)
+	}
+}
+
+func configUpdateServer()  {
 	updateNum := 0
 	createNum := 0
 	//var deleteNum = 0
@@ -98,8 +128,8 @@ func main() {
 
 //用户输入标签，或者是从旧的标签里面选一个
 func inputDocumentsTag(title string,config BlogConfig) string{
-	tagMap := make(map[int64]string)
-	var tagCount int64
+	tagMap := make(map[int]string)
+	var tagCount int
 	tagCount = 0
 	for _,article:= range config.Articles{
 		tagsTemp := strings.Split(article.Tag,",")
@@ -118,9 +148,11 @@ func inputDocumentsTag(title string,config BlogConfig) string{
 		}
 	}
 	fmt.Println("\n以下为已有的标签及编号：")
-	for i,tagTemp := range tagMap{
-		fmt.Println("\t",i,".",tagTemp)
+
+	for i :=0;i<len(tagMap);i++{
+		fmt.Println("\t",i,".",tagMap[i])
 	}
+
 	fmt.Printf("请输入文章 ' %s ' 的新标签名称，或者输入已有标签的序号，多个输入之间使用空格分隔 : \n",title)
 	reader := bufio.NewReader(os.Stdin)
 	input, _, _ := reader.ReadLine()
@@ -129,7 +161,7 @@ func inputDocumentsTag(title string,config BlogConfig) string{
 	for i,tag := range inputTemp{
 		flag,num :=  isInt(tag)
 		if flag {
-			if tagMap[num] == "" {
+			if tagMap[(num)] == "" {
 				res += tag
 			}else {
 				res += tagMap[num]
@@ -144,12 +176,12 @@ func inputDocumentsTag(title string,config BlogConfig) string{
 	return res
 }
 
-func isInt(str string)( bool,int64){
-	num,err := strconv.ParseInt(str,0,64)
+func isInt(str string)( bool,int){
+	num,err := strconv.ParseInt(str,0,32)
 	if err != nil {
 		return false,-1
 	}else {
-		return true,num
+		return true,int(num)
 	}
 }
 
@@ -295,11 +327,20 @@ func makeMap(lang []string) map[string]string{
 }
 
 func printHeader() {
-	fmt.Println(" _   _                _       ")
-	fmt.Println("| \\ | | ___  _ __ ___(_) __ _ ")
-	fmt.Println("|  \\| |/ _ \\| '__/ __| |/ _` |")
-	fmt.Println("| |\\  | (_) | | | (__| | (_| |")
-	fmt.Println("|_| \\_|\\___/|_|  \\___|_|\\__,_|")
+	fmt.Println("     _   _                _       ")
+	fmt.Println("    | \\ | | ___  _ __ ___(_) __ _ ")
+	fmt.Println("    |  \\| |/ _ \\| '__/ __| |/ _` |")
+	fmt.Println("    | |\\  | (_) | | | (__| | (_| |")
+	fmt.Println("    |_| \\_|\\___/|_|  \\___|_|\\__,_|")
+}
+
+//获取当前的程序文件夹
+func getCurrentDirectory() string {
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		log.Fatal(err)
+	}
+	return strings.Replace(dir, "\\", "/", -1)
 }
 
 func getStringsLan(languageMap map[string]map[string]string,key string) string{

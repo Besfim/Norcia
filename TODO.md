@@ -32,10 +32,12 @@
     - 搜索之后出现的博文卡片列表
  
 ## 2,JavaScript
- - Ajax 方法
+ - Norcia Javascript API
  - dom 和数据的绑定与更新
  - 搜索功能实现
  
 ## Go
  - 完成对 config.json 的自动维护
  - Go 编译成多端
+ - 对自定义访问 uri 的支持
+ - 文件重命名的解决
