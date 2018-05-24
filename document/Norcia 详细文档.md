@@ -80,22 +80,13 @@ Norcia 为以下三个平台提供打包好的二进制程序
 ## **`Norcia.js`** 说明
 `Norcia.js` 是　`Norcia`的　js 工具包，封装好了 Norcia 一些前端需要用到的函数，使用示例如下
     
-    // 新建一个 config 对象
-    let config = new NorciaConfig();
-    
-    // 使用回调函数来处理相关事务
-    // 回调函数会在 config.json 数据被读取之后调用
-    config.load([
-        function loadHead(config) {
-            console.log(config.head);
-        },
-        function loadTitle(config) {
-            console.log(config.introduce);
-        },
-        function loadArticle(configTemp) {
-            console.log(configTemp.articles[0].title);
-        }
-    ]);
+    let norciaConfig;
+    // 载入 config
+    ajaxGetConfig(function (config) {
+        norciaConfig = config;
+        console.log(norciaConfig);
+    });
+
 
 更多的示例请查看 Norcia JavaScript API 的说明
 
