@@ -10,6 +10,6 @@ Norcia 是一个简单的静态博客框架，通过 JavaScript 使用 Ajax 请�
  
 ## 更多说明
  - [Norcia-简易说明](document/Norcia%20简易说明.md)
- - [Norcia-简易说明](document/Norcia%20详细文档.md)
+ - [Norcia-详细文档](document/Norcia%20详细文档.md)
  - [Norcia-Javascript-API](document/Norcia%20的%20Javascript%20API.md)
 
