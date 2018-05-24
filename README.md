@@ -1,6 +1,8 @@
 ## 前言
 Norcia 是一个简单的静态博客框架，通过 JavaScript 使用 Ajax 请求本地的 markdown 文档文件来获得博客数据，并将其动态的展现在 Html 页面当中。
 
+**默认主题预览** : **[Besfim-Norcia-Github-Pages](https://besfim.github.io/Norcia/)**
+
 ## 项目结构
  - 根目录下的 HTML \ CSS \ JavaScript 文件
  - `document` 文件夹用来存放博文 markdown 文件
