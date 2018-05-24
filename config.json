@@ -2,7 +2,7 @@
 	"head": "Norcia's Blog",
 	"introduce": "the Norcia's Blog",
 	"github": "https://github.com/Besfim/Norcia",
-	"mail": "",
+	"mail": "一个简单的静态博客框架",
 	"articles": [
 		{
 			"title": "Norcia 简易说明",
