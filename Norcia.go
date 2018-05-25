@@ -45,15 +45,25 @@ import (
 // md文件存储文件夹
 const docDirName string = "document/"
 // Norcia 多语言支持
-var language = "cn"
-//const languageMap = initLanguageMap()
 
-// Preview 服务的运行端口
+// zh 简体中文
+// en 英语
+var language = "zh"
+
+var languageMap map[string]map[string]string
+
+// 是否开启预览服务
 var previewFlag = flag.Bool("p",false,"run a Web Server for blog preview")
+// 是否以英文显示
+var useEn = flag.Bool("en",false,"run with English")
 
 func main() {
+	initLanguageMap( &languageMap )
 	flag.Parse()
 	printHeader()
+	if *useEn {
+		language = "en"
+	}
 	if *previewFlag {
 		configUpdateServer()
 		previewServer()
@@ -65,9 +75,9 @@ func main() {
 func previewServer() {
 	h := http.FileServer(http.Dir(getCurrentDirectory()))
 	fmt.Println()
-	fmt.Println("---------- Norcia 博客预览服务 ----------")
+	fmt.Println(getStringsLan("norcia_preview_server"))
 	fmt.Println()
-	fmt.Println("请访问: http://localhost:8666/index.html ")
+	fmt.Println(getStringsLan("visit_host"))
 
 	err := http.ListenAndServe(":8666", h)
 	if err != nil {
@@ -80,7 +90,6 @@ func configUpdateServer()  {
 	createNum := 0
 	//var deleteNum = 0
 	blogconfig := parseConfigJson(readFileToString("config.json"))
-	//oldArticleNum = len(blogconfig.Articles)
 	//读取 document 文件
 	files, _ := ioutil.ReadDir("document")
 	var articles []Article
@@ -123,7 +132,7 @@ func configUpdateServer()  {
 	sort.Sort(articleList(articles))
 	blogconfig.Articles = articles
 	outputNewBlogConfig(blogconfig)
-	fmt.Printf("\n更新了 %d 个文档, 并且创建了 %d 个文档 \n\n", updateNum , createNum)
+	fmt.Printf(getStringsLan("update_info"), updateNum , createNum)
 }
 
 //用户输入标签，或者是从旧的标签里面选一个
@@ -148,12 +157,12 @@ func inputDocumentsTag(title string,config BlogConfig) string{
 		}
 	}
 	fmt.Println("\n以下为已有的标签及编号：")
+	fmt.Println(getStringsLan("existing_tags"))
 
 	for i :=0;i<len(tagMap);i++{
 		fmt.Println("\t",i,".",tagMap[i])
 	}
-
-	fmt.Printf("请输入文章 ' %s ' 的新标签名称，或者输入已有标签的序号，多个输入之间使用空格分隔 : \n",title)
+	fmt.Printf(getStringsLan("key_select"),title)
 	reader := bufio.NewReader(os.Stdin)
 	input, _, _ := reader.ReadLine()
 	res := ""
@@ -343,22 +352,33 @@ func getCurrentDirectory() string {
 	return strings.Replace(dir, "\\", "/", -1)
 }
 
-func getStringsLan(languageMap map[string]map[string]string,key string) string{
+func getStringsLan(key string) string{
 	return languageMap[key][language]
 }
 
 
-func initLanguageMap() map[string]map[string]string{
-	var languageMap map[string]map[string]string
-	languageMap = make(map[string](map[string]string))
+func initLanguageMap(languageMap *map[string]map[string]string){
+	*languageMap = make(map[string](map[string]string))
 	//载入多语言字符串
-	languageMap["final"] = makeMap([]string{
-		"更新了 %d 个文档, 并且创建了 %d 个文档",
-		"update %d document(s), and create %d documents(s)",
+	(*languageMap)["update_info"] = makeMap([]string{
+		"\n更新了 %d 个文档, 并且创建了 %d 个文档\n\n",
+		"\nupdate %d document(s), and create %d documents(s)\n\n",
 	})
-	languageMap["key_select"] = makeMap([]string{
-		"请输入文章 ' %s ' 标签或者选择标签，多个标签之间使用 ',' 分隔",
-		"Please enter a tag or select a tag for ' %s ' . Separate multiple tags by ','",
+	(*languageMap)["key_select"] = makeMap([]string{
+		"请输入文章 ' %s ' 的新标签名称，或者输入已有标签的序号，多个输入之间使用空格分隔 :\n",
+		"Enter or select the new tags for the article '%s', multiple entries are separated by spaces:\n",
 	})
-	return languageMap
+	(*languageMap)["existing_tags"] = makeMap([]string{
+		"\n以下为已有的标签及编号：",
+		"\nThe existing tags and numbers:",
+	})
+	(*languageMap)["norcia_preview_server"] = makeMap([]string{
+		"--------- Norcia 博客预览服务 ---------",
+		"-------- Norcia Preview Server ------",
+	})
+	(*languageMap)["visit_host"] = makeMap([]string{
+		"请访问: http://localhost:8666/index.html",
+		"Visit: http://localhost:8666/index.html",
+	})
+
 }
