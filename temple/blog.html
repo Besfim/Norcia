@@ -1,0 +1,161 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.Title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.9,  user-scalable=no">
+    <link rel="stylesheet" href="/css/mdui.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/google-code-prettify/prettify.css" />
+</head>
+<style type="text/css">
+</style>
+<body class="mdui-theme-accent-pink mdui-theme-primary-teal" id="body">
+<header class="mdui-color-theme blog-pages-header">
+</header>
+
+<div class="mdui-toolbar mdui-color-theme" id="test">
+    <button onclick="inst.toggle()" class="mdui-btn mdui-btn-icon mdui-text-color-white">
+        <i class="mdui-icon material-icons">menu</i>
+    </button>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">share</i></button>
+</div>
+
+<div class="mdui-container-fluid mdui-m-t-5">
+    <!--占位-->
+    <div class="mdui-col-md-2 mdui-col-sm-0"></div>
+    <!--内容主要显示区域-->
+    <div class="mdui-col-md-8 mdui-col-sm-12 ">
+        <div class="mdui-card mdui-shadow-6 mdui-typo mdui-p-a-4 mdui-m-b-2">
+            <div >
+                <h1 id="title" class="bold-font-weight">
+                    <!--标题所在-->{{.Title}}
+                </h1>
+                <!--设置创建时间-->
+                <div class="mdui-typo-body-1 inline-display">
+                    创建时间 : <span id ="create" class="mdui-text-color-pink">{{.Create}}</span>
+                </div>
+                <div class="mdui-typo-body-1 mdui-m-l-3 inline-display">
+                    最后更新 : <span id ="lastUpdate" class="mdui-text-color-pink">{{.Update}}</span>
+                </div>
+            </div>
+            <div class="mdui-typo mdui-m-t-1 mdui-m-b-1">
+                <hr/>
+            </div>
+            <div id="mdContent" class="prettyprint">
+                {{.Content}}
+                <!-- markdown 转换成的 HTML 的存放地址-->
+            </div>
+            <div class="mdui-typo mdui-m-t-3 mdui-m-b-3">
+                <hr/>
+            </div>
+            <!--显示文章外的信息-->
+            <div>
+                <div class="mdui-typo mdui-typo-subheading-opacity">
+                    <ul>
+                        <li id = "currentLink">
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mdui-m-a-5">
+                <button class="mdui-btn mdui-btn-icon mdui-center mdui-color-red mdui-btn-raised middle-ico">
+                    赏
+                </button>
+            </div>
+            <div class="mdui-typo mdui-m-t-3 mdui-m-b-3">
+                <hr/>
+            </div>
+            <div class="mdui-m-t-2 mdui-m-b-2" id="tags">
+
+            </div>
+        </div>
+
+        <div id="preAndNext" class="">
+            <div id="prePage" class="mdui-float-left text-align-left">
+                <p >< 上一篇</p>
+                <h3>
+                    <a href="/blog/{{.PreTitle}}" class="mdui-text-color-black-text pre-next-title">{{.PreTitle}}</a>
+                </h3>
+            </div>
+            <div id="nextPage" class="mdui-float-right text-align-right">
+                <p >下一篇 ></p>
+                <h3>
+                    <a href="/blog/{{.NextTitle}}" class="mdui-text-color-black-text pre-next-title">{{.NextTitle}}</a>
+                </h3>
+            </div>
+        </div>
+    </div>
+    <!--占位-->
+    <div class="mdui-col-md-2 mdui-col-sm-0"></div>
+</div>
+
+<div class="mdui-container mdui-appbar-with-toolbar">
+    <div class="mdui-drawer	mdui-drawer-full-height mdui-color-white mdui-drawer-close" id="drawer">
+        <div class="navigation-bar-header">
+            <img class="mdui-img-circle logo mdui-m-l-3 mdui-m-t-4" src="/img/logo.jpg"/>
+            <div class="mdui-typo mdui-m-l-4">
+                <h4 class="mdui-text-color-white mdui-m-t-2 name-mail-line-height"><strong id="blogName">
+                {{.Head}}</strong></h4>
+                <p class="mdui-text-color-white mdui-m-t-0 name-mail-line-height" id="mail"></p>
+            </div>
+        </div>
+        <ul class="mdui-list">
+            <br>
+            <a href="/index.html">
+                <li class="mdui-list-item mdui-ripple">
+                    <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-black">home</i>
+                    <div class="mdui-list-item-content inline-display">首页 Home</div>
+                </li>
+            </a>
+            <br>
+            <a href="/archives.html">
+                <li class="mdui-list-item mdui-ripple">
+                    <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-black">archive</i>
+                    <div class="mdui-list-item-content inline-display">归档 Archives</div>
+                </li>
+            </a>
+            <br>
+
+            <a href="">
+                <li class="mdui-list-item mdui-ripple" >
+                    <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-black">attach_file</i>
+                    <div class="mdui-list-item-content inline-display">标签 Tag</div>
+                </li>
+            </a>
+
+            <br>
+            <li class="mdui-subheader">链接</li>
+            <a href="{{.Github}}">
+                <li class="mdui-list-item mdui-ripple">
+                    <i class="mdui-list-item-icon material-icons mdui-text-color-grey">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+                    </i>
+                    <div class="mdui-list-item-content inline-display ">Github</div>
+                </li>
+            </a>
+        </ul>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/js/mdui.min.js"></script>
+<script type="text/javascript" src="/js/marked.js"></script>
+<script type="text/javascript" src="/js/norcia.js"></script>
+<script type="text/javascript" src="/js/script.js"></script>
+<script type="text/javascript" src="/google-code-prettify/prettify.js"></script>
+<script>
+    const inst = new mdui.Drawer('#drawer', {swipe: true});
+    domId("currentLink").innerHTML+=
+            `原始链接 :<a href="${window.location.href}">${window.location.href}</a>`;
+
+    //对所有 code 标签引入代码着色
+    let codes = document.getElementsByTagName("code");
+    for (let k=0;k<codes.length;k++){
+        let classTemp = document.getElementsByTagName("code")[k].getAttribute("class");
+        document.getElementsByTagName("code")[k].setAttribute("class",classTemp+" prettyprint")
+    }
+
+    prettyPrint();
+</script>
+</html>

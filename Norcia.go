@@ -14,6 +14,7 @@ import (
 	"path/filepath"
 	"net/http"
 	"flag"
+	"gopkg.in/russross/blackfriday.v2"
 )
 
 /**
@@ -57,6 +58,8 @@ var previewFlag = flag.Bool("p",false,"run a Web Server for blog preview")
 // 是否以英文显示
 var useEn = flag.Bool("en",false,"run with English")
 
+var staticPath = "static/"
+
 func main() {
 	initLanguageMap( &languageMap )
 	flag.Parse()
@@ -73,7 +76,7 @@ func main() {
 }
 
 func previewServer() {
-	h := http.FileServer(http.Dir(getCurrentDirectory()))
+	h := http.FileServer(http.Dir(getCurrentDirectory()+"/"+staticPath))
 	fmt.Println()
 	fmt.Println(getStringsLan("norcia_preview_server"))
 	fmt.Println()
@@ -133,7 +136,105 @@ func configUpdateServer()  {
 	blogconfig.Articles = articles
 	outputNewBlogConfig(blogconfig)
 	fmt.Printf(getStringsLan("update_info"), updateNum , createNum)
+	generateStaticPages(blogconfig)
 }
+
+//生成静态页面
+func generateStaticPages(config BlogConfig) {
+	// index 页面
+	writeStringToFile(bindIndex(config),staticPath+"index.html")
+	// blog 页面
+	for i,article := range config.Articles{
+		writeStringToFile(bindBlog(config,i),staticPath+"blog/"+article.Title+".html")
+	}
+	// config.json
+	writeStringToFile(generateConfigJson(config), staticPath+"config.json")
+	// archive 页面
+	writeStringToFile(readFileToString("temple/archives.html"),staticPath+"archives.html")
+}
+
+// 渲染 index 页面
+func bindIndex(config BlogConfig) string {
+	var tmpl = readFileToString("temple/index.html")
+	data := map[string]string{
+		"Head":config.Head,
+		"Introduce":config.Introduce,
+		"Github":config.Github,
+		"Mail":config.Mail,
+		"Articles":bindCardAndArticle(config),
+	}
+	return bindDateToTmpl(tmpl,data)
+}
+
+// 绑定卡片和文章摘要
+func bindCardAndArticle(config BlogConfig) string {
+	var res string
+	var tmpl = readFileToString("temple/blogCard.html")
+	for _,article := range config.Articles{
+		data := map[string]string{
+			"Title":article.Title,
+			"Tag":bindBlogTag(article),
+			"Create":article.Create,
+			"Update":article.Update,
+			"Mini":article.Mini,
+		}
+		res += "\n"+ bindDateToTmpl(tmpl,data)
+	}
+	return res
+}
+
+func bindBlogTag(article Article) string {
+	var res string
+	var tmpl = readFileToString("temple/blogTag.html")
+	for _,tag := range strings.Split(article.Tag,","){
+		data := map[string]string{"Tag": tag}
+		res += "\n"+bindDateToTmpl(tmpl,data)
+	}
+	return res
+}
+
+func bindAllBlog() {
+
+}
+
+// 渲染所有的 blog 页面
+func bindBlog(config BlogConfig,n int) string {
+	var tmpl = readFileToString("temple/blog.html")
+	article := config.Articles[n]
+	var preTitle string
+	var nextTitle string
+	if n > 0 {
+		preTitle = config.Articles[n-1].Title+".html"
+	}else {
+		preTitle = ""
+	}
+	if n < len(config.Articles)-1 {
+		nextTitle = config.Articles[n+1].Title+".html"
+	}else {
+		nextTitle = ""
+	}
+	data := map[string]string {
+		"Title":article.Title,
+		"Create":article.Create,
+		"Update":article.Update,
+		"Content":string(blackfriday.Run([]byte(readFileToString("document/"+article.Title+".md")))),
+		"PreTitle":preTitle,
+		"NextTitle":nextTitle,
+		"Head":config.Head,
+		"Introduce":config.Introduce,
+		"Github":config.Github,
+		"Mail":config.Mail,
+	}
+	return bindDateToTmpl(tmpl,data)
+}
+
+func bindDateToTmpl(tmpl string, data map[string]string) string {
+	for key,value := range data{
+		tmpl = strings.Replace(tmpl,"{{."+key+"}}",value,-1)
+	}
+	return tmpl
+}
+
 
 //用户输入标签，或者是从旧的标签里面选一个
 func inputDocumentsTag(title string,config BlogConfig) string{
@@ -355,7 +456,6 @@ func getCurrentDirectory() string {
 func getStringsLan(key string) string{
 	return languageMap[key][language]
 }
-
 
 func initLanguageMap(languageMap *map[string]map[string]string){
 	*languageMap = make(map[string](map[string]string))

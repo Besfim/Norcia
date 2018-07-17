@@ -1,0 +1,94 @@
+.padding-t-10p {
+    padding-top: 10%;
+}
+
+/*侧边栏的头像图片*/
+.logo {
+    height: 100px;
+    width: 100px;
+    border: 5px solid white;
+}
+
+.name-mail-line-height {
+    line-height: 5px;
+}
+
+body {
+    background: #f6f6f6
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    text-align: center;
+    min-width: 100%;
+}
+
+table td, table th {
+    color: #2d2d2d;
+    height: 30px;
+}
+
+table thead th {
+    background-color: #d5d7d3;
+    width: 100px;
+}
+
+table tr:nth-child(odd) {
+    background: #fafcf8;
+}
+
+table tr:nth-child(even) {
+    background: #fafcf8;
+}
+
+.blog-pages-header{
+    width: 100%; min-height: 35%;z-index: -1;position: absolute;
+}
+
+.bold-font-weight{
+    font-weight: bolder
+}
+
+.inline-display{
+    display: inline;
+}
+
+.none-display{
+    display: none;
+}
+
+.block-display{
+    display: block;
+}
+
+.text-align-center{
+    text-align: center;
+}
+
+.text-align-left{
+    text-align: left;
+}
+
+.text-align-right{
+    text-align: right;
+}
+
+.middle-ico{
+    height: 56px;
+    width: 56px;
+}
+
+.navigation-bar-header{
+    min-height: 250px;
+    height: 30%;
+    background: #3F51B5 url('../img/brand.png');
+}
+
+.none-text-transform{
+    text-transform: none;
+}
+
+.pre-next-title{
+    text-decoration: none;
+}

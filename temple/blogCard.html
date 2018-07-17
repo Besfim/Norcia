@@ -1,0 +1,15 @@
+<div class="mdui-card mdui-typo mdui-m-t-2 mdui-m-b-2 mdui-hoverable">
+    <div class="mdui-card-primary">
+        <div class="mdui-card-primary-title ">
+            <a href="blog/{{.Title}}.html">{{.Title}}</a>
+        </div>
+        <div class="mdui-card-primary-subtitle">{{.Create}}</div>
+    </div>
+    <div class="mdui-card-content">
+        {{.Mini}}
+    </div>
+    <div class="mdui-card-actions mdui-m-t-2 mdui-m-b-2">
+        {{.Tag}}
+        <button class="mdui-btn mdui-btn-icon mdui-float-right"><i class="mdui-icon material-icons">expand_more</i></button>
+    </div>
+</div>
