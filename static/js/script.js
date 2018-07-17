@@ -28,7 +28,7 @@ function bindIndexArticleCard(article) {
         `<div class="mdui-card mdui-typo mdui-m-t-2 mdui-m-b-2 mdui-hoverable">
         <div class="mdui-card-primary">
             <div class="mdui-card-primary-title ">
-                <a href="javascript:void(0);" onclick="handleCardClick('blog.html?title=${article.title}')">${article.title}</a>
+                <a href="blog/${article.title}.html">${article.title}</a>
             </div>
             <div class="mdui-card-primary-subtitle">${article.create}</div>
         </div>

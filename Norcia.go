@@ -170,7 +170,7 @@ func bindIndex(config BlogConfig) string {
 func bindCardAndArticle(config BlogConfig) string {
 	var res string
 	var tmpl = readFileToString("temple/blogCard.html")
-	for _,article := range config.Articles{
+	for i,article := range config.Articles{
 		data := map[string]string{
 			"Title":article.Title,
 			"Tag":bindBlogTag(article),
@@ -179,6 +179,9 @@ func bindCardAndArticle(config BlogConfig) string {
 			"Mini":article.Mini,
 		}
 		res += "\n"+ bindDateToTmpl(tmpl,data)
+		if i >= 5 {
+			break
+		}
 	}
 	return res
 }

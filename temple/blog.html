@@ -18,7 +18,7 @@
         <i class="mdui-icon material-icons">menu</i>
     </button>
     <div class="mdui-toolbar-spacer"></div>
-    <button class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">share</i></button>
+    <button class="mdui-btn mdui-btn-icon" onclick="showShareCode()"><i class="mdui-icon material-icons">share</i></button>
 </div>
 
 <div class="mdui-container-fluid mdui-m-t-5">
@@ -144,6 +144,7 @@
 <script type="text/javascript" src="/js/norcia.js"></script>
 <script type="text/javascript" src="/js/script.js"></script>
 <script type="text/javascript" src="/google-code-prettify/prettify.js"></script>
+<script type="text/javascript" src="/js/jr-qrcode.js"></script>
 <script>
     const inst = new mdui.Drawer('#drawer', {swipe: true});
     domId("currentLink").innerHTML+=
@@ -157,5 +158,18 @@
     }
 
     prettyPrint();
+
+    function showShareCode() {
+        mdui.dialog({
+            title: '',
+            content: `<img class="mdui-center mdui-m-t-2" src = ${jrQrcode.getQrBase64(window.location.href)} style="height:150px;width:150px" >
+                        <div class="mdui-text-center mdui-m-t-2">扫一扫二维码即可分享</div>`,
+            buttons: [
+                {
+                    text: '取消'
+                }
+            ]
+        });
+    }
 </script>
 </html>
