@@ -204,3 +204,16 @@ function bindArchiveArticle(article){
             </div>
         </div>`
 }
+
+function showShareCode() {
+    mdui.dialog({
+        title: '',
+        content: `<img class="mdui-center mdui-m-t-2" src = ${jrQrcode.getQrBase64(window.location.href)} style="height:150px;width:150px" >
+                        <div class="mdui-text-center mdui-m-t-2">扫一扫二维码即可分享</div>`,
+        buttons: [
+            {
+                text: '取消'
+            }
+        ]
+    });
+}
