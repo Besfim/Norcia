@@ -18,7 +18,7 @@
             <i class="mdui-icon material-icons">menu</i>
         </button>
         <div class="mdui-toolbar-spacer"></div>
-        <button class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">share</i></button>
+        <button class="mdui-btn mdui-btn-icon" onclick="showShareCode()"><i class="mdui-icon material-icons">share</i></button>
     </div>
 
     <div class="mdui-container-fluid mdui-m-t-5">
@@ -98,6 +98,8 @@
 <script type="text/javascript" src="js/norcia.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
 <script type="text/javascript" src="google-code-prettify/prettify.js"></script>
+<script type="text/javascript" src="js/jr-qrcode.js"></script>
+
 <script>
     loadNavigation("body",true);
     const inst = new mdui.Drawer('#drawer', {swipe: true});
