@@ -116,7 +116,7 @@ function loadNavigation(dom,close) {
                 </li>
 
                 <br>
-                <li class="mdui-list-item mdui-ripple" onclick="">
+                <li class="mdui-list-item mdui-ripple" onclick="gotoArchives()">
                     <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-black">archive</i>
                     <div class="mdui-list-item-content">归档 Archives</div>
                 </li>
@@ -158,6 +158,10 @@ function gotoIndex() {
     window.location.href="index.html";
 }
 
+function gotoArchives() {
+    window.location.href="archives.html"
+}
+
 let github = "";
 function gotoGithub() {
     if (github !== ""){
@@ -176,4 +180,27 @@ function gotoNextPage() {
     if (nextPage !== ""){
         window.location.href = "blog.html?title="+ nextPage;
     }
+}
+function transDateToCH(monthDate) {
+    let temp = monthDate.split("-")
+    if (temp[1].startsWith("0")){
+        temp[1] = temp[1].substring(1,temp[1].length)
+    }
+    return temp[0]+" 年 "+temp[1]+" 月";
+}
+
+function bindArchiveArticle(article){
+    return `<div class="mdui-col-xs-12 mdui-col-md-6 mdui-col-sm-12 mdui-m-t-1">
+            <div class="mdui-card mdui-typo mdui-hoverable">
+                <div class="mdui-p-x-2">
+                    <h4 class="mdui-typo">
+                        <a href="blog.html?title=${article.title}">${article.title}</a>
+                    </h4>
+                    <div class="mdui-card-primary-subtitle">${article.create}</div>
+                </div>
+                <div class="mdui-card-actions mdui-m-b-2">
+                    ${bindArticleTags(article.tag,true)}
+                </div>
+            </div>
+        </div>`
 }

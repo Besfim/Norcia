@@ -1,0 +1,76 @@
+<html lang="en" xmlns:https="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9,  user-scalable=no">
+    <title>Norcia's Blog</title>
+    <!--引入mdui-->
+    <link rel="stylesheet" href="css/mdui.min.css">
+    <!--引入自定义css-->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="mdui-theme-accent-pink mdui-theme-primary-indigo mdui-drawer-body-left" id="body">
+    <div class="mdui-toolbar mdui-color-theme" id="toolbar">
+        <button onclick="inst.toggle()" class="mdui-btn mdui-btn-icon mdui-text-color-white">
+            <i class="mdui-icon material-icons">menu</i>
+        </button>
+        <p class="mdui-typo-headline mdui-text-color-white">归档</p>
+        <div class="mdui-toolbar-spacer"></div>
+        <div class="mdui-textfield mdui-textfield-expandable mdui-float-right mdui-text-color-white">
+            <button class="mdui-textfield-icon mdui-btn mdui-btn-icon "><i
+                    class="mdui-icon material-icons">search</i></button>
+            <input class="mdui-textfield-input mdui-color-white" type="text" placeholder="Search"/>
+            <button class="mdui-textfield-close mdui-btn mdui-btn-icon "><i
+                    class="mdui-icon material-icons">close</i></button>
+        </div>
+    </div>
+
+    <!--页面内容放置区域-->
+    <div class="mdui-container doc-container mdui-m-t-4" id="articles">
+
+
+    </div>
+
+    <div class=" mdui-typo mdui-m-t-4 text-align-center" id="foot">
+        <p class="mdui-center mdui-typo-subheading-opacity ">Power By <a
+                href="https://github.com/Besfim/Norcia">Norcia</a></p>
+    </div>
+
+</body>
+<!--引入自定义css-->
+<script type="text/javascript" src="/js/mdui.min.js"></script>
+<script type="text/javascript" src="/js/script.js"></script>
+<script type="text/javascript" src="/js/norcia.js"></script>
+<script type="text/javascript">
+    loadNavigation("body",false);
+    const inst = new mdui.Drawer('#drawer', {swipe: true});
+
+    /**
+     * 载入首页的文章卡片
+     * @param config
+     */
+    function loadArcives(config) {
+        let monthTemp = "";
+        config.articles.forEach(function (arcicle, index, array) {
+            if (arcicle.create.substring(0,7) !== monthTemp){
+                monthTemp = arcicle.create.substring(0,7);
+                domId("articles").innerHTML +=
+                `<div class="mdui-col-xs-12">
+                    <div class="mdui-typo mdui-m-x-2">
+                        <h4 style="font-weight:bold" class="mdui-text-color-theme">${transDateToCH(monthTemp)}</h4>
+                    </div>
+                </div>`
+            }
+            domId("articles").innerHTML += bindArchiveArticle(arcicle)
+        })
+    }
+
+
+    let norciaConfig;
+    // 载入 config
+    ajaxGetConfig(function (config) {
+        norciaConfig = config;
+        loadArcives(config)
+    });
+
+</script>
+</html>
