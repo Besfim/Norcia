@@ -72,7 +72,7 @@
                 </li>
 
                 <br>
-                <li class="mdui-list-item mdui-ripple" onclick="">
+                <li class="mdui-list-item mdui-ripple" onclick="gotoTags()">
                     <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-black">attach_file</i>
                     <div class="mdui-list-item-content">标签 Tag</div>
                 </li>
@@ -106,6 +106,9 @@
      * @param config
      */
     function loadIndexCard(config) {
+        domId("articles").childNodes.forEach(function (value, index, Obj) {
+            value.className = (""+value.className).replace("gradient-wrapper","");
+        });
         let loadNum = 5;
         let startNum = articleCount;
         // 是否从其他页面返回来

@@ -88,3 +88,38 @@ table tr:nth-child(even) {
 .none-text-transform{
     text-transform: none;
 }
+
+.blog-tag{
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 20px;
+}
+
+@keyframes wrapper-gradient {
+    0% {
+        transform: translateY(5%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes fade-in {
+    0% {opacity: 0;}
+    40% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@-webkit-keyframes fade-in {
+    0% {opacity: 0;}
+    40% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.gradient-wrapper {
+    display: inline-block;
+    overflow: hidden;
+    animation:
+            wrapper-gradient 500ms linear,
+            fade-in 500ms linear;
+}
