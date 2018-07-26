@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9,  user-scalable=no">
+    <title></title>
+    <!--引入mdui-->
+    <link rel="stylesheet" href="css/mdui.min.css">
+    <!--引入自定义css-->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="mdui-theme-accent-pink mdui-theme-primary-teal mdui-drawer-body-left" id="body">
+    <div class="mdui-toolbar mdui-color-theme" id="toolbar">
+        <button onclick="inst.toggle()" class="mdui-btn mdui-btn-icon mdui-text-color-white">
+            <i class="mdui-icon material-icons">menu</i>
+        </button>
+        <p class="mdui-typo-headline mdui-text-color-white">归档</p>
+        <div class="mdui-toolbar-spacer"></div>
+        <div class="mdui-textfield mdui-textfield-expandable mdui-float-right mdui-text-color-white">
+            <button class="mdui-textfield-icon mdui-btn mdui-btn-icon "><i
+                    class="mdui-icon material-icons">search</i></button>
+            <input class="mdui-textfield-input mdui-color-white" type="text" placeholder="Search"/>
+            <button class="mdui-textfield-close mdui-btn mdui-btn-icon "><i
+                    class="mdui-icon material-icons">close</i></button>
+        </div>
+    </div>
+
+    <!--页面内容放置区域-->
+    <div class="mdui-container doc-container mdui-m-t-4" id="tags">
+
+    </div>
+
+    <div class="mdui-container doc-container mdui-m-t-4" id="articles">
+
+    </div>
+
+    <div class=" mdui-typo mdui-m-t-4 text-align-center" id="foot">
+        <p class="mdui-center mdui-typo-subheading-opacity ">Power By <a href="https://github.com/Besfim/Norcia">Norcia</a>
+        </p>
+    </div>
+
+</body>
+<!--引入自定义css-->
+<script type="text/javascript" src="/js/mdui.min.js"></script>
+<script type="text/javascript" src="/js/script.js"></script>
+<script type="text/javascript" src="/js/norcia.js"></script>
+<script type="text/javascript">
+    loadNavigation("body",false);
+    const inst = new mdui.Drawer('#drawer', {swipe: true});
+
+    let norciaConfig;
+    // 载入 config
+    ajaxGetConfig(function (config) {
+        norciaConfig = config;
+        loadTags(config)
+    });
+
+    //载入 tags
+    function loadTags(config) {
+        let tagSet = new Set();
+        config.articles.forEach(function (arcicle, index, array) {
+            arcicle.tag.split(",").forEach(function (value, index, array) {
+                tagSet.add(value);
+            });
+        });
+        let loadFirstFlag = true;
+        tagSet.forEach(function (value, key, obj) {
+            domId("tags").innerHTML += bindTagsTag(value, true)
+            if (loadFirstFlag) {
+                loadTagsArticles(value);
+                loadFirstFlag = false;
+            }
+        })
+    }
+
+    function bindTagsTag(tag, randomColor) {
+        let tagHtml = "";
+        let colors = [
+            "mdui-color-deep-orange-400",
+            "mdui-color-teal-400",
+            "mdui-color-red-400",
+            "mdui-color-lime",
+            "mdui-color-pink-400",
+            "mdui-color-blue-grey-400"
+        ];
+        let colorClass = "mdui-color-theme-accent";
+        let ran = getRandom(0, colors.length - 1);
+        if (randomColor) {
+            colorClass = colors[ran];
+        }
+        tagHtml +=
+                `<div class="mdui-chip ${colorClass} mdui-m-x-1 none-text-transform mdui-text-color-white blog-tag" onclick="loadTagsArticles('${tag}')">
+            <span class="mdui-chip-title">${tag}</span>
+        </div>`;
+        return tagHtml;
+    }
+
+    function loadTagsArticles(tagName) {
+        domId("articles").innerHTML = "";
+        norciaConfig.articles.forEach(function (article, index, array) {
+            if (article.tag.indexOf(tagName) !== -1) {
+                domId("articles").innerHTML += bindArchiveArticle(article)
+            }
+        })
+    }
+</script>
+</html>

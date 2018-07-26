@@ -14,6 +14,7 @@ import (
 	"path/filepath"
 	"net/http"
 	"flag"
+	"regexp"
 )
 
 /**
@@ -278,16 +279,21 @@ func getArticleFromConfigByTitle(title string, config BlogConfig) (Article, int)
 }
 
 //去除 markdown 文档里面的 markdown 符号
+//去除 markdown 文档里面的 markdown 符号
 func cleanMarkdownDoc(mkDoc string) string {
 	mkDoc = strings.Replace(mkDoc, "#", "", -1)
 	mkDoc = strings.Replace(mkDoc, "**", "", -1)
 	mkDoc = strings.Replace(mkDoc, "-", "", -1)
 	mkDoc = strings.Replace(mkDoc, "+", "", -1)
-	mkDoc = strings.Replace(mkDoc, ">", "", -1)
 	mkDoc = strings.Replace(mkDoc, "-", "", -1)
 	mkDoc = strings.Replace(mkDoc, "|", "", -1)
 	mkDoc = strings.Replace(mkDoc, "\r", " ", -1)
 	mkDoc = strings.Replace(mkDoc, "\n", " ", -1)
+	//替换图片和 url 链接
+	picReg, _ := regexp.Compile("!\\[.*\\]\\(.*\\)")
+	mkDoc = picReg.ReplaceAllString(mkDoc, "")
+	picReg, _ = regexp.Compile("\\[.*\\]\\(.*\\)")
+	mkDoc = picReg.ReplaceAllString(mkDoc, "")
 	return mkDoc
 }
 

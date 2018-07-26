@@ -25,7 +25,7 @@ function bindIndexArticleCard(article) {
     let tags = article.tag;
     let tagHtml = bindArticleTags(tags,true);
     let head =
-        `<div class="mdui-card mdui-typo mdui-m-t-2 mdui-m-b-2 mdui-hoverable">
+        `<div class="mdui-card mdui-typo mdui-m-t-2 mdui-m-b-2 mdui-hoverable gradient-wrapper">
         <div class="mdui-card-primary">
             <div class="mdui-card-primary-title ">
                 <a href="javascript:void(0);" onclick="handleCardClick('blog.html?title=${article.title}')">${article.title}</a>
@@ -74,15 +74,13 @@ function bindArticleTags(tags,randomColor) {
         "mdui-color-blue-grey-400"
     ];
     let colorClass = "mdui-color-theme-accent";
-    let ran = getRandom(0,colors.length-1);
     for (let i=0;i<temp.length;i++){
         if (randomColor){
-            colorClass = colors[(ran+i)%temp.length];
+            colorClass = colors[getRandom(0,colors.length-1)];
         }
-        tagHtml += `<button class="mdui-btn mdui-ripple ${colorClass} 
-            mdui-text-color-white mdui-shadow-1 mdui-m-x-1 none-text-transform">
-                ${temp[i]}      
-            </button>`;
+        tagHtml += `<div class="mdui-chip ${colorClass}  mdui-m-x-1 none-text-transform mdui-text-color-white blog-tag">
+                        <span class="mdui-chip-title">${temp[i]}  </span>
+                    </div>`;
     }
     return tagHtml;
 }
@@ -122,7 +120,7 @@ function loadNavigation(dom,close) {
                 </li>
 
                 <br>
-                <li class="mdui-list-item mdui-ripple" onclick="">
+                <li class="mdui-list-item mdui-ripple" onclick="gotoTags()">
                     <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-black">attach_file</i>
                     <div class="mdui-list-item-content">标签 Tag</div>
                 </li>
@@ -162,6 +160,10 @@ function gotoArchives() {
     window.location.href="archives.html"
 }
 
+function gotoTags() {
+    window.location.href="tags.html"
+}
+
 let github = "";
 function gotoGithub() {
     if (github !== ""){
@@ -190,7 +192,7 @@ function transDateToCH(monthDate) {
 }
 
 function bindArchiveArticle(article){
-    return `<div class="mdui-col-xs-12 mdui-col-md-6 mdui-col-sm-12 mdui-m-t-1">
+    return `<div class="mdui-col-xs-12 mdui-col-md-6 mdui-col-sm-12 mdui-m-t-1 mdui-p-b-1 gradient-wrapper">
             <div class="mdui-card mdui-typo mdui-hoverable">
                 <div class="mdui-p-x-2">
                     <h4 class="mdui-typo">
