@@ -8,56 +8,56 @@
 			"title": "Norcia 简易说明",
 			"tag": "Norcia,教程",
 			"create": "2018-05-24 19:24",
-			"update": "2018-05-24 19:42",
+			"update": "2018-07-26 21:36",
 			"mini": " 克隆 Norcia 仓库 使用以下命令 clone Github 上面的 Norcia 仓库      git clone https://github.com/Besfim/Norcia.git      或者直接在 [BesfimNorcia](https://github.com/Besfim/Norcia) 页面下载完整的项目   新建博客 删除 documents 文件夹里面的示例文档，新建一个 markdown 文档作为一篇新的博客   更新文档 使用以下命令更新文档          ./Norcia_linux_amd64    预览效果 使用以下命令开启博客预览      "
 		},
 		{
 			"title": "Norcia 详细文档",
 			"tag": "Norcia,文档",
 			"create": "2018-05-24 19:23",
-			"update": "2018-05-24 19:56",
+			"update": "2018-07-26 21:36",
 			"mini": " 前言 Norcia 是一个简单的静态博客框架，通过 JavaScript 使用 Ajax 请求本地的 markdown 文档文件来获得博客数据，并将其动态的展现在 Html 页面当中。   项目结构   根目录下的 HTML \\ CSS \\ JavaScript 文件   `document` 文件夹用来存放博文 markdown 文件   `config.json` 作为静态博客的配置文件以及博客文章索引,该文件在初次设定好个人信息后可由 Norcia 程序自动更新与维护, 详情请看下文介绍    `config.json` 说明  自动更新 运行 `Norcia` 程序就可以自动依照 `"
 		},
 		{
 			"title": "Norcia 的 Javascript API",
 			"tag": "Norcia,文档",
 			"create": "2018-05-24 19:22",
-			"update": "2018-05-24 19:42",
+			"update": "2018-07-26 21:36",
 			"mini": " 前言 Norcia 将 JavaScript 对本地的 document 和 config.json 的读取封装成了一个 JavaScript 文件 `norcia.js`，引入这个文件之后，通过封装好 ajax 的一些函数，就能够拿到本地的文档数据和配置文件数据了，方便 Norcia 开发新主题时候为将静态的页面转换为动态页面。   封装对象  Article 对应 config.json 当中 articles 数组里面的每篇文章信息    `title`   `tag`   `create`   `update`   `mini`   `content`    NorciaConfig"
 		},
 		{
 			"title": "Norcia测试1",
 			"tag": "测试1",
 			"create": "2018-01-01 00:00",
-			"update": "2018-05-24 19:56",
+			"update": "2018-07-26 21:36",
 			"mini": " 前言 Norcia 是一个简单的静态博客框架，通过 JavaScript 使用 Ajax 请求本地的 markdown 文档文件来获得博客数据，并将其动态的展现在 Html 页面当中。   项目结构   根目录下的 HTML \\ CSS \\ JavaScript 文件   `document` 文件夹用来存放博文 markdown 文件   `config.json` 作为静态博客的配置文件以及博客文章索引,该文件在初次设定好个人信息后可由 Norcia 程序自动更新与维护, 详情请看下文介绍    `config.json` 说明  自动更新 运行 `Norcia` 程序就可以自动依照 `"
 		},
 		{
 			"title": "Norcia测试2",
 			"tag": "测试2",
 			"create": "2018-01-01 00:00",
-			"update": "2018-05-24 19:56",
+			"update": "2018-07-26 21:36",
 			"mini": " 前言 Norcia 是一个简单的静态博客框架，通过 JavaScript 使用 Ajax 请求本地的 markdown 文档文件来获得博客数据，并将其动态的展现在 Html 页面当中。   项目结构   根目录下的 HTML \\ CSS \\ JavaScript 文件   `document` 文件夹用来存放博文 markdown 文件   `config.json` 作为静态博客的配置文件以及博客文章索引,该文件在初次设定好个人信息后可由 Norcia 程序自动更新与维护, 详情请看下文介绍    `config.json` 说明  自动更新 运行 `Norcia` 程序就可以自动依照 `"
 		},
 		{
 			"title": "Norcia测试3",
 			"tag": "测试3",
 			"create": "2018-01-01 00:00",
-			"update": "2018-05-24 19:56",
+			"update": "2018-07-26 21:36",
 			"mini": " 前言 Norcia 是一个简单的静态博客框架，通过 JavaScript 使用 Ajax 请求本地的 markdown 文档文件来获得博客数据，并将其动态的展现在 Html 页面当中。   项目结构   根目录下的 HTML \\ CSS \\ JavaScript 文件   `document` 文件夹用来存放博文 markdown 文件   `config.json` 作为静态博客的配置文件以及博客文章索引,该文件在初次设定好个人信息后可由 Norcia 程序自动更新与维护, 详情请看下文介绍    `config.json` 说明  自动更新 运行 `Norcia` 程序就可以自动依照 `"
 		},
 		{
 			"title": "Norcia测试4",
 			"tag": "测试4",
 			"create": "2018-01-01 00:00",
-			"update": "2018-05-24 19:56",
+			"update": "2018-07-26 21:36",
 			"mini": " 前言 Norcia 是一个简单的静态博客框架，通过 JavaScript 使用 Ajax 请求本地的 markdown 文档文件来获得博客数据，并将其动态的展现在 Html 页面当中。   项目结构   根目录下的 HTML \\ CSS \\ JavaScript 文件   `document` 文件夹用来存放博文 markdown 文件   `config.json` 作为静态博客的配置文件以及博客文章索引,该文件在初次设定好个人信息后可由 Norcia 程序自动更新与维护, 详情请看下文介绍    `config.json` 说明  自动更新 运行 `Norcia` 程序就可以自动依照 `"
 		},
 		{
 			"title": "Norcia测试5",
 			"tag": "测试5",
 			"create": "2018-01-01 00:00",
-			"update": "2018-05-24 19:56",
+			"update": "2018-07-26 21:36",
 			"mini": " 前言 Norcia 是一个简单的静态博客框架，通过 JavaScript 使用 Ajax 请求本地的 markdown 文档文件来获得博客数据，并将其动态的展现在 Html 页面当中。   项目结构   根目录下的 HTML \\ CSS \\ JavaScript 文件   `document` 文件夹用来存放博文 markdown 文件   `config.json` 作为静态博客的配置文件以及博客文章索引,该文件在初次设定好个人信息后可由 Norcia 程序自动更新与维护, 详情请看下文介绍    `config.json` 说明  自动更新 运行 `Norcia` 程序就可以自动依照 `"
 		}
 	]
