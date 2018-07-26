@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.9,  user-scalable=no">
-    <title>Norcia's Blog</title>
+    <title></title>
     <!--引入mdui-->
     <link rel="stylesheet" href="css/mdui.min.css">
     <!--引入自定义css-->
@@ -37,9 +37,9 @@
 
 </body>
 <!--引入自定义css-->
-<script type="text/javascript" src="/js/mdui.min.js"></script>
-<script type="text/javascript" src="/js/script.js"></script>
-<script type="text/javascript" src="/js/norcia.js"></script>
+<script type="text/javascript" src="js/mdui.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/norcia.js"></script>
 <script type="text/javascript">
     loadNavigation("body",false);
     const inst = new mdui.Drawer('#drawer', {swipe: true});
@@ -69,6 +69,7 @@
     // 载入 config
     ajaxGetConfig(function (config) {
         norciaConfig = config;
+        loadBlogConfig(norciaConfig);
         loadArcives(config)
     });
 
