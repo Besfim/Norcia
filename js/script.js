@@ -78,8 +78,8 @@ function bindArticleTags(tags,randomColor) {
         if (randomColor){
             colorClass = colors[getRandom(0,colors.length-1)];
         }
-        tagHtml += `<div class="mdui-chip ${colorClass}  mdui-m-x-1 none-text-transform mdui-text-color-white blog-tag">
-                        <span class="mdui-chip-title">${temp[i]}  </span>
+        tagHtml += `<div class="mdui-chip ${colorClass} mdui-m-x-1 none-text-transform mdui-text-color-white blog-tag">
+                        <span class="mdui-chip-title">${temp[i]}</span>
                     </div>`;
     }
     return tagHtml;
@@ -164,6 +164,10 @@ function gotoTags() {
     window.location.href="tags.html"
 }
 
+function gotoSearch() {
+    window.location.href="search.html"
+}
+
 let github = "";
 function gotoGithub() {
     if (github !== ""){
@@ -218,4 +222,42 @@ function showShareCode() {
             }
         ]
     });
+}
+
+
+//首页文章动态加载 flag,记录文章加载的记录
+let articleCount = 0;
+/**
+ * 载入首页的文章卡片
+ * @param config
+ */
+function loadIndexCard(config) {
+    domId("articles").childNodes.forEach(function (value, index, Obj) {
+        value.className = (""+value.className).replace("gradient-wrapper","");
+    });
+    let loadNum = 5;
+    let startNum = articleCount;
+    // 是否从其他页面返回来
+    if (sessionStorage.getItem("loadNum")!==null){
+        articleCount = sessionStorage.getItem("loadNum");
+        articleCount = parseInt(articleCount);
+        sessionStorage.removeItem("loadNum");
+        loadNum = 0;
+        startNum = 0;
+    }
+    for (let i = startNum;i<config.articles.length && i<articleCount+loadNum;i++){
+        domId("articles").innerHTML +=
+            "\n"
+            +bindIndexArticleCard(config.articles[i]);
+        if (i === config.articles.length-1){
+            domId("load_more_btn").disabled = true;
+            domId("load_more_btn").innerText = " 我可是有底线的，哼 ╭(╯^╰)╮ ";
+        }
+    }
+    articleCount = articleCount+loadNum;
+    //如果有记录浏览位置的话，就跳转到浏览位置
+    if (sessionStorage.getItem("scrollIndex")!==null){
+        document.body.scrollTop = sessionStorage.getItem("scrollIndex");
+        sessionStorage.removeItem("scrollIndex");
+    }
 }
