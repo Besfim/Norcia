@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文章搜索</title>
+    <link rel="stylesheet" href="css/mdui.min.css">
+    <!--引入cwcss-->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="mdui-theme-primary-indigo mdui-theme-accent-indigo mdui-drawer-body-left" id="body">
+
+    <div class="mdui-toolbar mdui-color-theme" id="toolbar">
+        <button onclick="inst.toggle()" class="mdui-btn mdui-btn-icon mdui-text-color-white">
+            <i class="mdui-icon material-icons">menu</i>
+        </button>
+        <p class="mdui-typo-headline mdui-text-color-white">搜索</p>
+    </div>
+
+    <div class="mdui-card mdui-typo mdui-m-t-2 mdui-m-b-2 mdui-hoverable gradient-wrapper">
+
+    </div>
+
+    <div class="mdui-container">
+        <div class="mdui-card mdui-typo mdui-m-t-2 mdui-p-x-2 mdui-p-b-2 gradient-wrapper" style="width: 100%">
+            <div id="SearchTrap" class="mdui-textfield mdui-textfield-floating-label">
+                <label class="mdui-textfield-label">搜索标题和缩略</label>
+                <input id="searchInput" class="mdui-textfield-input" type="text" oninput="onInput()"/>
+            </div>
+        </div>
+    </div>
+
+    <!--页面内容放置区域-->
+    <div class="mdui-container doc-container mdui-m-t-4" id="articles">
+
+    </div>
+
+    <div class=" mdui-typo mdui-m-t-4 text-align-center" id="foot">
+        <p class="mdui-center mdui-typo-subheading-opacity ">Power By <a href="https://github.com/Besfim/Norcia">Norcia</a></p>
+    </div>
+
+    <!-- 右下角图标 -->
+    <a id="circle" href="javascript:;" class="mdui-fab mdui-fab-fixed mdui-ripple"><i class="mdui-icon material-icons">&#xe5d8;</i></a>
+
+</body>
+<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/norcia.js"></script>
+<script type="text/javascript" src="js/mdui.js"></script>
+<script>
+    loadNavigation("body",false);
+    const inst = new mdui.Drawer('#drawer', {swipe: true});
+
+    let norciaConfig;
+    // 载入 config
+    ajaxGetConfig(function(config) {
+        norciaConfig = config;
+        loadBlogConfig(norciaConfig);
+        // loadIndexCard(norciaConfig)
+    });
+
+    document.body.onscroll = function() {
+        let percent = (document.documentElement.scrollTop || document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+        domId("circle").style.backgroundSize = "100% " + percent * 100 + "%";
+        if (percent > 0.5) {
+            domId("circle").style.color = "white";
+        } else {
+            domId("circle").style.color = "black";
+        }
+
+        if (window.pageYOffset > 50) {
+            domId("circle").style.bottom = "20px";
+        } else {
+            domId("circle").style.bottom = "-50px";
+        }
+    };
+
+    function scrolltotop() {
+        let currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        if (currentScroll > 0) {
+            window.requestAnimationFrame(scrolltotop);
+            window.scrollTo(0, currentScroll - (currentScroll / 5));
+        }
+    }
+
+    domId("circle").addEventListener("click", function() {
+        scrolltotop();
+    });
+
+    let firstLoad = true;
+    function onInput() {
+        let keyValue = domId("searchInput").value;
+        if (!firstLoad && keyValue.trim() !== "") {
+            loadIndexCardByKey(keyValue)
+        }
+        firstLoad = false;
+    }
+
+    function loadIndexCardByKey(key) {
+        domId("articles").innerHTML = "";
+        norciaConfig.articles.forEach(function (article, index, array) {
+            if (article.title.indexOf(key) !== -1 || article.mini.indexOf(key) !== -1){
+                domId("articles").innerHTML += "\n" +bindIndexArticleCard(article);
+            }
+        })
+    }
+</script>
+</html>
