@@ -125,7 +125,7 @@ table tr:nth-child(even) {
 }
 
 #circle {
-    background-image: url(/img/circle.png);
+    background-image: url(../img/circle.png);
     background-position-y: 100%;
     background-size: 100% 0%;
     background-repeat: no-repeat;
