@@ -86,10 +86,7 @@
         function getScrollHeight() {
             return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
         }
-        console.log(getScrollHeight(), getClientHeight(), getScrollTop());
-
         let percent = (getScrollTop() / (getScrollHeight() - getClientHeight()));
-        console.log(percent);
         domId("circle").style.backgroundSize = "100% " + percent * 100 + "%";
         if (percent > 0.5) {
             domId("circle").style.color = "white";
