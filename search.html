@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -28,7 +27,7 @@
         <div class="mdui-card mdui-typo mdui-m-t-2 mdui-p-x-2 mdui-p-b-2 gradient-wrapper" style="width: 100%">
             <div id="SearchTrap" class="mdui-textfield mdui-textfield-floating-label">
                 <label class="mdui-textfield-label">搜索标题和缩略</label>
-                <input id="searchInput" class="mdui-textfield-input" type="text" oninput="onInput()"/>
+                <input id="searchInput" class="mdui-textfield-input" type="text" oninput="onInput()" />
             </div>
         </div>
     </div>
@@ -50,8 +49,10 @@
 <script type="text/javascript" src="js/norcia.js"></script>
 <script type="text/javascript" src="js/mdui.js"></script>
 <script>
-    loadNavigation("body",false);
-    const inst = new mdui.Drawer('#drawer', {swipe: true});
+    loadNavigation("body", false);
+    const inst = new mdui.Drawer('#drawer', {
+        swipe: true
+    });
 
     let norciaConfig;
     // 载入 config
@@ -62,7 +63,30 @@
     });
 
     document.body.onscroll = function() {
-        let percent = (document.documentElement.scrollTop || document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+        function getScrollTop() {
+            var scrollTop = 0;
+            if (document.documentElement && document.documentElement.scrollTop) {
+                scrollTop = document.documentElement.scrollTop;
+            } else if (document.body) {
+                scrollTop = document.body.scrollTop;
+            }
+            return scrollTop;
+        }
+
+        function getClientHeight() {
+            var clientHeight = 0;
+            if (document.body.clientHeight && document.documentElement.clientHeight) {
+                var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+            } else {
+                var clientHeight = (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+            }
+            return clientHeight;
+        }
+
+        function getScrollHeight() {
+            return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+        }
+        let percent = (getScrollTop() / (getScrollHeight() - getClientHeight()));
         domId("circle").style.backgroundSize = "100% " + percent * 100 + "%";
         if (percent > 0.5) {
             domId("circle").style.color = "white";
@@ -73,7 +97,7 @@
         if (window.pageYOffset > 50) {
             domId("circle").style.bottom = "20px";
         } else {
-            domId("circle").style.bottom = "-50px";
+            domId("circle").style.bottom = "-90px";
         }
     };
 
@@ -90,6 +114,7 @@
     });
 
     let firstLoad = true;
+
     function onInput() {
         let keyValue = domId("searchInput").value;
         if (!firstLoad && keyValue.trim() !== "") {
@@ -100,11 +125,12 @@
 
     function loadIndexCardByKey(key) {
         domId("articles").innerHTML = "";
-        norciaConfig.articles.forEach(function (article, index, array) {
-            if (article.title.indexOf(key) !== -1 || article.mini.indexOf(key) !== -1){
-                domId("articles").innerHTML += "\n" +bindIndexArticleCard(article);
+        norciaConfig.articles.forEach(function(article, index, array) {
+            if (article.title.indexOf(key) !== -1 || article.mini.indexOf(key) !== -1) {
+                domId("articles").innerHTML += "\n" + bindIndexArticleCard(article);
             }
         })
     }
 </script>
+
 </html>
